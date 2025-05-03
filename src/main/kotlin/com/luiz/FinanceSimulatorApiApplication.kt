@@ -1,4 +1,4 @@
-package com.luiz.finance_simulator_api
+package com.luiz
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class FinanceSimulatorApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<FinanceSimulatorApiApplication>(*args)
+    runApplication<FinanceSimulatorApiApplication>(*args)
 }
