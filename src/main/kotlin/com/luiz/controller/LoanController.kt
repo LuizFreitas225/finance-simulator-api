@@ -23,7 +23,7 @@ class LoanController(
         @RequestBody @Valid loanSimulationDTO: LoanSimulationDTO,
     ): ResponseEntity<LoanSimulationResponseDTO> {
         logger.info("LoanController.simulate - start - input [{}]", loanSimulationDTO.toString())
-        val simulation = service.saveLoanSimulation(loanSimulationDTO.toEntity())
+        val simulation = service.executeLoanSimulation(loanSimulationDTO.toEntity())
         logger.info("LoanController.simulate - end - totalPayable = {}", simulation.totalPayable)
         return ResponseEntity.ok(LoanSimulationResponseDTO.from(simulation))
     }

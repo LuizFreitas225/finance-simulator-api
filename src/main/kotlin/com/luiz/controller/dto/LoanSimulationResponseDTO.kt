@@ -7,16 +7,15 @@ data class LoanSimulationResponseDTO(
     val id: Long,
     val installments: Int,
     val totalPayable: BigDecimal,
-    val annualInterestRate: BigDecimal,
+    val totalInterestPayable: BigDecimal,
 ) {
     companion object {
-        // TODO Add annualInterestRate to LoanSimulation and remover elvis operator when have values
         fun from(loanSimulation: LoanSimulation): LoanSimulationResponseDTO =
             LoanSimulationResponseDTO(
-                id = loanSimulation.id ?: 0L,
-                installments = loanSimulation.installments ?: 0,
-                totalPayable = loanSimulation.totalPayable ?: BigDecimal.ZERO,
-                annualInterestRate = BigDecimal("0.00"), // loanSimulation.annualInterestRate
+                id = loanSimulation.id!!,
+                installments = loanSimulation.installments!!,
+                totalPayable = loanSimulation.totalPayable!!,
+                totalInterestPayable = loanSimulation.totalInterestPayable!!,
             )
     }
 }

@@ -25,15 +25,20 @@ class LoanSimulation() {
     @Column(nullable = false)
     var installments: Int? = null
 
-    // TODO remove comment when have values
-//    @Column(nullable = false)
-    var installmentValue: BigDecimal? = null
-
-//    @Column(nullable = false)
-    var totalPayable: BigDecimal? = null
-
     @Column
     var email: String? = null
+
+    @Column(nullable = false)
+    var installmentValue: BigDecimal? = null
+
+    @Column(nullable = false)
+    var totalPayable: BigDecimal? = null
+
+    @Column(nullable = false)
+    var annualInterestRate: BigDecimal? = null
+
+    @Column(nullable = false)
+    var totalInterestPayable: BigDecimal? = null
 
     constructor(
         loanValue: BigDecimal,
