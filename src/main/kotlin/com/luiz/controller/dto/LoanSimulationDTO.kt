@@ -1,5 +1,6 @@
 package com.luiz.controller.dto
 
+import com.luiz.exception.ErrorMenssage
 import com.luiz.model.LoanSimulation
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.Email
@@ -10,16 +11,16 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 data class LoanSimulationDTO(
-    @field:NotNull("Loan value cannot be null")
-    @field:DecimalMin(value = "0.0", inclusive = false, message = "Loan value must be greater than 0")
+    @field:NotNull(ErrorMenssage.LOAN_VALUE_NOT_NULL)
+    @field:DecimalMin(value = "0.0", inclusive = false, message = ErrorMenssage.LOAN_VALUE_MIN)
     val loanValue: BigDecimal,
-    @field:NotNull("Birth date cannot be null")
-    @field:Past(message = "Birth date must be in the past")
+    @field:NotNull(ErrorMenssage.BIRTH_DATE_NOT_NULL)
+    @field:Past(message = ErrorMenssage.BIRTH_DATE_PAST)
     val birthDate: LocalDate,
-    @field:NotNull("Term in months cannot be null")
-    @field:Min(value = 1, message = "Term in months must be at least 1")
+    @field:NotNull(ErrorMenssage.INSTALLMENTS_NOT_NULL)
+    @field:Min(value = 1, message = ErrorMenssage.INSTALLMENTS_MIN)
     val installments: Int,
-    @field:Email(message = "Email should be valid")
+    @field:Email(message = ErrorMenssage.EMAIL_VALID)
     val email: String? = null,
 ) {
     fun toEntity(): LoanSimulation =

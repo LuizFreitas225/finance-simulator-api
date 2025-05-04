@@ -1,6 +1,8 @@
 package com.luiz.service
 
 import com.luiz.config.Constant
+import com.luiz.exception.ErrorMenssage
+import com.luiz.exception.LoanSimulationException
 import com.luiz.model.LoanSimulation
 import com.luiz.repository.LoanSimulationRepository
 import org.slf4j.LoggerFactory
@@ -22,18 +24,21 @@ class LoanService(
             loanSimulation.loanValue,
             loanSimulation.birthDate,
         )
-
-        loanSimulation.annualInterestRate = getAnnualInterestRate(loanSimulation.birthDate!!)
+        this.validateSimulation(loanSimulation)
+        loanSimulation.annualInterestRate = this.getAnnualInterestRate(loanSimulation.birthDate!!)
         // Utilizei o arredondamento com RoundingMode.DOWN para aproximar o valor gerado ao que é exibido
         // no site do Banco Central do Brasil (BCB) em alguns casos específicos.
         loanSimulation.installmentValue =
-            calculateInstallmentValue(loanSimulation)
+            this
+                .calculateInstallmentValue(loanSimulation)
                 .setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.DOWN)
         loanSimulation.totalPayable =
-            calculateTotalPayable(loanSimulation)
+            this
+                .calculateTotalPayable(loanSimulation)
                 .setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.HALF_UP)
         loanSimulation.totalInterestPayable =
-            calculateTotalInterestPaid(loanSimulation)
+            this
+                .calculateTotalInterestPaid(loanSimulation)
                 .setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.HALF_UP)
         val loanSimulationSaved = loanSimulationRepository.save(loanSimulation)
 
@@ -90,6 +95,19 @@ class LoanService(
             age in 26..40 -> BigDecimal("0.03")
             age in 41..60 -> BigDecimal("0.02")
             else -> BigDecimal("0.04")
+        }
+    }
+
+    private fun validateSimulation(loanSimulation: LoanSimulation) {
+        val loanSimulationException = LoanSimulationException("")
+        if (Period.between(loanSimulation.birthDate, LocalDate.now()).years < Constant.MIN_AGE) {
+            loanSimulationException.listError.add(ErrorMenssage.MIN_AGE)
+        }
+        // Mais verificações  aqui
+
+        if (loanSimulationException.listError.isNotEmpty()) {
+            logger.error("LoanService.validateSimulation - error - {}", loanSimulationException.listError)
+            throw loanSimulationException
         }
     }
 }
