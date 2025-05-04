@@ -51,4 +51,21 @@ class LoanSimulation() {
         this.installments = installments
         this.email = email
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as LoanSimulation
+
+        return id == other.id &&
+            loanValue == other.loanValue &&
+            birthDate == other.birthDate &&
+            installments == other.installments &&
+            email == other.email &&
+            installmentValue == other.installmentValue &&
+            totalPayable == other.totalPayable &&
+            annualInterestRate == other.annualInterestRate &&
+            totalInterestPayable == other.totalInterestPayable
+    }
 }

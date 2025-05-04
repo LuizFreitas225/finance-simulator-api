@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.Clock
 import java.time.LocalDate
 import java.time.Period
 
 @Service
 class LoanService(
     private val loanSimulationRepository: LoanSimulationRepository,
+    private val clock: Clock,
 ) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
@@ -88,7 +90,7 @@ class LoanService(
     }
 
     private fun getAnnualInterestRate(birthDate: LocalDate): BigDecimal {
-        val age = Period.between(birthDate, LocalDate.now()).years
+        val age = Period.between(birthDate, LocalDate.now(clock)).years
 
         return when {
             age <= 25 -> BigDecimal("0.05")
@@ -100,7 +102,7 @@ class LoanService(
 
     private fun validateSimulation(loanSimulation: LoanSimulation) {
         val loanSimulationException = LoanSimulationException("")
-        if (Period.between(loanSimulation.birthDate, LocalDate.now()).years < Constant.MIN_AGE) {
+        if (Period.between(loanSimulation.birthDate, LocalDate.now(clock)).years < Constant.MIN_AGE) {
             loanSimulationException.listError.add(ErrorMenssage.MIN_AGE)
         }
         // Mais verificações  aqui
