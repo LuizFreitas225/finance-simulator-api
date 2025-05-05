@@ -72,12 +72,18 @@ As validações dos dados recebidos pela API são feitas com **Jakarta Validatio
 
 Como o foco da API é retornar rapidamente o resultado da simulação de parcelas fixas, o método responsável por persistir os dados foi anotado com `@Async`, permitindo que a gravação no banco ocorra em segundo plano. Em caso de erro durante a persistência, o sistema apenas registra o log sem lançar exceções, garantindo que o cliente receba a resposta da simulação mesmo que o salvamento falhe.
 
+---
+
 **🐳 Docker:**
 
 O Docker foi utilizado para **containerizar o banco de dados**, facilitando o setup do ambiente de desenvolvimento. Essa abordagem é especialmente útil em ambientes de desenvolvimento colaborativo ou em situações em que o projeto é hospedado em servidores Linux ou máquinas virtuais (VMs), permitindo fácil replicação e isolamento do serviço de banco de dados.
 
+---
+
 📘 Swagger OpenAPI:
 Adicionei essa dependência para facilitar a documentação e a utilização da API. Através dela, é possível visualizar toda a estrutura dos endpoints, suas descrições, parâmetros e respostas. Além disso, a ferramenta permite realizar requisições diretamente pela interface, o que é útil tanto para testes quanto para entendimento da API por outros desenvolvedores.
+
+---
 
 ### 🛠️ Futuras Implementações
 
