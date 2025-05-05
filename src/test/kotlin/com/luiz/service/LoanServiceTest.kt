@@ -5,8 +5,8 @@ import com.luiz.exception.ErrorMenssage
 import com.luiz.exception.LoanSimulationException
 import com.luiz.model.LoanSimulation
 import com.luiz.repository.LoanSimulationRepository
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
@@ -14,6 +14,9 @@ import java.math.BigDecimal
 import java.time.Clock
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class LoanServiceTest {
     private val loanSimulationRepository: LoanSimulationRepository = mock()
@@ -46,7 +49,7 @@ class LoanServiceTest {
         inputLoanSimulation.birthDate = LocalDate.now().minusYears(17)
 
         val exception =
-            assertThrows(LoanSimulationException::class.java) {
+            assertThrows<>(LoanSimulationException::class.java) {
                 loanService.executeLoanSimulation(inputLoanSimulation)
             }
 
