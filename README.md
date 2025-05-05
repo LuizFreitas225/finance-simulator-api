@@ -105,13 +105,13 @@ Adicionei essa dependência para facilitar a documentação e a utilização da 
 
 2. **Disponibilize o banco PostgresSq via Docker:**
 
-```bash
+   ```bash
+   
+   cd docker
+   docker-compose up -d
+   ```
 
-cd docker
-docker-compose up -d
-```
-
-1. **Compilar o projeto:**
+3. **Compilar o projeto:**
 
    Utilize o Maven Wrapper para compilar o projeto:
 
@@ -120,7 +120,7 @@ docker-compose up -d
     mvn clean install
     ```
 
-2. **Executar a aplicação:**
+4. **Executar a aplicação:**
 
    Após a compilação, execute a aplicação você pode executar o
 
@@ -132,7 +132,7 @@ docker-compose up -d
 
    Ou, faça através da sua IDE de preferênica.
 
-1. **Acessar a API:**
+5. **Acessar a API:**
 
    Com a aplicação em execução, a API estará disponível em:
 
@@ -142,6 +142,6 @@ docker-compose up -d
     
     ```
 
-2. [Clique aqui para acessar Dcumentação OpenAPI](http://localhost:8080/swagger-ui/index.html)
+6. [Clique aqui para acessar Dcumentação OpenAPI](http://localhost:8080/swagger-ui/index.html)
 
-Ao clicar no link, a página será carregada no seu navegador. Nela, é possível visualizar todos os endpoints disponíveis, seus contratos (métodos, parâmetros e respostas) e até realizar requisições diretamente pela interface.
+   Ao clicar no link, a página será carregada no seu navegador. Nela, é possível visualizar todos os endpoints disponíveis, seus contratos (métodos, parâmetros e respostas) e até realizar requisições diretamente pela interface.
