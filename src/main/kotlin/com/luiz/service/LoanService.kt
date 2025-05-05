@@ -6,6 +6,7 @@ import com.luiz.exception.LoanSimulationException
 import com.luiz.model.LoanSimulation
 import com.luiz.repository.LoanSimulationRepository
 import org.slf4j.LoggerFactory
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -31,21 +32,29 @@ class LoanService(
         // Utilizei o arredondamento com RoundingMode.DOWN para aproximar o valor gerado ao que é exibido
         // no site do Banco Central do Brasil (BCB) em alguns casos específicos.
         loanSimulation.installmentValue =
-            this
-                .calculateInstallmentValue(loanSimulation)
-                .setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.DOWN)
+            this.calculateInstallmentValue(loanSimulation).setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.DOWN)
         loanSimulation.totalPayable =
-            this
-                .calculateTotalPayable(loanSimulation)
-                .setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.HALF_UP)
+            this.calculateTotalPayable(loanSimulation).setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.HALF_UP)
         loanSimulation.totalInterestPayable =
-            this
-                .calculateTotalInterestPaid(loanSimulation)
-                .setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.HALF_UP)
-        val loanSimulationSaved = loanSimulationRepository.save(loanSimulation)
+            this.calculateTotalInterestPaid(loanSimulation).setScale(Constant.DECIMAL_SCALE_DEFAULT, RoundingMode.HALF_UP)
 
-        logger.info("LoanService.executeLoanSimulation - end - id {}", loanSimulationSaved.id)
-        return loanSimulationSaved
+        this.saveSimulationLog(loanSimulation)
+
+        logger.info(
+            "LoanService.executeLoanSimulation - end - loanValue {} birthDate {}",
+            loanSimulation.loanValue,
+            loanSimulation.birthDate,
+        )
+        return loanSimulation
+    }
+
+    @Async
+    fun saveSimulationLog(loanSimulation: LoanSimulation) {
+        try {
+            loanSimulationRepository.save(loanSimulation)
+        } catch (e: Exception) {
+            logger.error("LoanService.saveSimulationLog - error - {}", e.message)
+        }
     }
 
     private fun calculateTotalInterestPaid(loanSimulation: LoanSimulation): BigDecimal =
