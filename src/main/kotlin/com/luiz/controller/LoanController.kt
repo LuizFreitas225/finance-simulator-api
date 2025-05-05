@@ -3,6 +3,7 @@ package com.luiz.controller
 import com.luiz.controller.dto.LoanSimulationDTO
 import com.luiz.controller.dto.LoanSimulationResponseDTO
 import com.luiz.service.LoanService
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -19,6 +20,10 @@ class LoanController(
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     @PostMapping("/simulate")
+    @Tag(
+        name = "Simulação de Parcelas Fixas",
+        description = "Endpoints para simulações de empréstimos seguindo a fórmula de parcelas fixas",
+    )
     fun simulate(
         @RequestBody @Valid loanSimulationDTO: LoanSimulationDTO,
     ): ResponseEntity<LoanSimulationResponseDTO> {
