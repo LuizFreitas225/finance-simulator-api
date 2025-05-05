@@ -7,7 +7,7 @@ import java.time.LocalDate
 object MockUtils {
     fun createValidLoanSimulation(): LoanSimulation =
         LoanSimulation(
-            loanValue = BigDecimal("10000"),
+            loanValue = BigDecimal("10000.00"),
             birthDate = LocalDate.of(1990, 1, 1),
             installments = 12,
             email = "test@example.com",
@@ -22,31 +22,4 @@ object MockUtils {
 
         return loanSimulation
     }
-
-//    fun createLoanSimulationWithInvalidAge(): LoanSimulation {
-//        return LoanSimulation(
-//                loanValue = BigDecimal("10000"),
-//                birthDate = LocalDate.now().minusYears(17), // Below minimum age
-//                installments = 12,
-//                email = "test@example.com"
-//        )
-//    }
-
-//    fun createLoanSimulationWithNullLoanValue(): LoanSimulation {
-//        return LoanSimulation(
-//                loanValue = null,
-//                birthDate = LocalDate.of(1990, 1, 1),
-//                installments = 12,
-//                email = "test@example.com"
-//        )
-//    }
-//
-//    fun createLoanSimulationWithInvalidInstallments(): LoanSimulation {
-//        return LoanSimulation(
-//                loanValue = BigDecimal("10000"),
-//                birthDate = LocalDate.of(1990, 1, 1),
-//                installments = 0, // Invalid installments
-//                email = "test@example.com"
-//        )
-//    }
 }
