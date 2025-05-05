@@ -1,6 +1,6 @@
 ## 🧾 Visão Geral
 
-O **Finance Simulator API** é um projeto backend desenvolvido em Kotlin, com o objetivo de fornecer uma API para simulações financeiras. Utiliza o framework Spring Boot e está configurado para execução do seu banco em ambiente Docker. Atualmente, a API oferece a simulação de financiamentos com prestações fixas, baseada na fórmula oficial do Banco Central do Brasil (BCB) utlizada [Calculadora do cidadão.](https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas)
+O **Finance Simulator API** é um projeto backend desenvolvido em Kotlin, com o objetivo de fornecer uma API para simulações financeiras. Utiliza o framework Spring Boot e está configurado para execução do seu banco em ambiente Docker. Atualmente, a API oferece a simulação de financiamentos com prestações fixas, baseada na fórmula oficial do Banco Central do Brasil (BCB) utlizada na  [Calculadora do cidadão.](https://www3.bcb.gov.br/CALCIDADAO/publico/exibirFormFinanciamentoPrestacoesFixas.do?method=exibirFormFinanciamentoPrestacoesFixas)
 
 ## 🚀 Tecnologias Utilizadas
 
